@@ -371,6 +371,11 @@ ngx_http_upstream_get_random2_peer(ngx_peer_connection_t *pc, void *data)
 
             break;
         }
+        
+        // With probability 1-beta we terminate without the second sample.
+        if (nginx_random() % 10000 < 5000) {
+           break;
+        }
 
         prev = peer;
         p = i;
